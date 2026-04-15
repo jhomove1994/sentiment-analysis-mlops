@@ -26,12 +26,16 @@ jobs:
 
 
       - name: Generar datos de prueba
-        run: python -c "
-import pandas as pd, numpy as np
-np.random.seed(42)
-t = ['Good results']*100 + ['Bad losses']*100
-l = [1]*100 + [0]*100
-pd.DataFrame({'text':t,'label':l}).to_csv('data/sentiment_data.csv',index=False)"
+        run: |
+          python - <<EOF
+          import pandas as pd, numpy as np
+
+          np.random.seed(42)
+          t = ['Good results']*100 + ['Bad losses']*100
+          l = [1]*100 + [0]*100
+
+          pd.DataFrame({'tweets': t, 'labels': l}).to_csv('data/sentiment_data.csv', index=False)
+          EOF
 
 
       - name: Entrenar modelo
