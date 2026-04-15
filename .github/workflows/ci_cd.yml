@@ -47,11 +47,16 @@ jobs:
 
 
       - name: Validar AUC
-        run: python -c "
-import json
-with open('metrics.json') as f: m=json.load(f)
-assert m['auc']>=0.60, f'AUC {m["auc"]:.3f} bajo umbral'
-print(f'AUC={m["auc"]:.3f} OK')"
+        run: |
+          python - <<EOF
+          import json
+
+          with open('metrics.json') as f:
+              m = json.load(f)
+
+          assert m['auc'] >= 0.60, f"AUC {m['auc']:.3f} bajo umbral"
+          print(f"AUC={m['auc']:.3f} OK")
+          EOF
 
 
       - name: Guardar modelo como artefacto
