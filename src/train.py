@@ -13,6 +13,7 @@ if os.path.exists('/content'):
     DRIVE_BASE = '/content/drive/MyDrive/mlops_sentiment'
     mlflow.set_tracking_uri(f'file:///{DRIVE_BASE}/mlruns')
 else:
+    DRIVE_BASE = os.getcwd()
     mlflow.set_tracking_uri("sqlite:///mlflow.db")
 mlflow.set_experiment('sentiment_analysis')
 
@@ -44,7 +45,7 @@ with mlflow.start_run(run_name='rf_tfidf_v1') as run:
     mlflow.sklearn.log_model(pipeline,'model',
         registered_model_name='sentiment_classifier')
 
-
+    os.makedirs(f'{DRIVE_BASE}/models', exist_ok=True)
     joblib.dump(pipeline,'modelo_sentimiento.joblib')
     joblib.dump(pipeline,f'{DRIVE_BASE}/models/modelo_sentimiento.joblib')
 
