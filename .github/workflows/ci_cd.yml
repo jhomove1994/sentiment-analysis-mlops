@@ -31,10 +31,23 @@ jobs:
           import pandas as pd, numpy as np
 
           np.random.seed(42)
-          t = ['Good results']*100 + ['Bad losses']*100
-          l = [1]*100 + [0]*100
 
-          pd.DataFrame({'tweets': t, 'labels': l}).to_csv('data/sentiment_data.csv', index=False)
+          t = (
+              ['Good results']*100 +
+              ['Neutral news']*100 +
+              ['Bad losses']*100
+          )
+
+          l = (
+              [1]*100 +     # positivo
+              [0]*100 +     # neutro
+              [-1]*100      # negativo
+          )
+
+          df = pd.DataFrame({'tweets': t, 'labels': l})
+          df = df.sample(frac=1, random_state=42)  # 🔥 shuffle
+
+          df.to_csv('data/sentiment_data.csv', index=False)
           EOF
 
 
