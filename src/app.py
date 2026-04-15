@@ -16,8 +16,7 @@ def predict():
     pred = int(model.predict([text])[0])
     probs = model.predict_proba([text])[0]
     classes = list(model.classes_)
-    prob = float(probs[classes.index(pred)])
-    log.append({'ts': datetime.now().isoformat(), 'pred': pred, 'prob': prob})
+    prob = float(probs[classes.index(pred)])  # índice correcto según clase predicha
 
     if pred == 1:
         sentiment = 'positivo'
@@ -28,6 +27,7 @@ def predict():
     else:
         sentiment = 'desconocido'
 
+    log.append({'ts': datetime.now().isoformat(), 'pred': pred, 'prob': prob})
     return jsonify({'prediction': pred, 'probability': round(prob, 3), 'sentiment': sentiment})
 
 
