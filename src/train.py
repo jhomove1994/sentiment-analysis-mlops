@@ -5,11 +5,15 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import accuracy_score, roc_auc_score
+import os
 
 
 # Configurar MLflow
-DRIVE_BASE = '/content/drive/MyDrive/mlops_sentiment'
-mlflow.set_tracking_uri(f'file:///{DRIVE_BASE}/mlruns')
+if os.path.exists('/content'):
+    DRIVE_BASE = '/content/drive/MyDrive/mlops_sentiment'
+    mlflow.set_tracking_uri(f'file:///{DRIVE_BASE}/mlruns')
+else:
+    mlflow.set_tracking_uri("sqlite:///mlflow.db")
 mlflow.set_experiment('sentiment_analysis')
 
 
