@@ -72,6 +72,10 @@ jobs:
           EOF
 
 
+      - name: Monitorizar rendimiento del modelo
+        run: python src/monitor.py
+
+
       - name: Guardar modelo como artefacto
         uses: actions/upload-artifact@v4
         with:
