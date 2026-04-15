@@ -1,0 +1,9 @@
+pandas
+scikit-learn
+mlflow
+flask
+pyngrok
+evidently
+joblib
+numpy
+pytest
