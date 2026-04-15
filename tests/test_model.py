@@ -13,7 +13,7 @@ def test_modelo_cargado(modelo):
 
 def test_prediccion_valida(modelo):
     preds = modelo.predict(['Good results this quarter'])
-    assert preds[0] in [0, 1]
+    assert preds[0] in [-1, 0, 1]  # cubre las 3 clases
 
 
 def test_metricas_umbral():
@@ -24,4 +24,5 @@ def test_metricas_umbral():
 
 def test_formato_proba(modelo):
     probs = modelo.predict_proba(['Test text'])
-    assert 0 <= probs[0][1] <= 1
+    assert all(0 <= p <= 1 for p in probs[0])
+    assert abs(sum(probs[0]) - 1.0) < 1e-6
